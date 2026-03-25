@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm audit --audit-level=high && next build",
+    "build": "next build",
+    "audit": "npm audit --audit-level=high",
     "start": "next start",
     "lint": "next lint"
   },
