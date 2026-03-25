@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  outputFileTracingRoot: new URL('.', import.meta.url).pathname,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
 
