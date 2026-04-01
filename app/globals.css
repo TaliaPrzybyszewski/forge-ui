@@ -182,13 +182,13 @@ input[type=color] { width: 28px; height: 28px; border: 1px solid var(--line2); b
 .ph-reset { font-size: 10px; color: var(--hint); background: transparent; border: 1px solid var(--line); border-radius: 5px; padding: 3px 8px; cursor: pointer; transition: all .12s }
 .ph-reset:hover { color: var(--text); border-color: var(--line2) }
 
-.docs-wrap { display: flex; flex-direction: row; width: 100%; height: 100%; overflow: hidden }
+.docs-wrap { display: flex; flex-direction: row; width: 100%; height: calc(100vh - 48px); overflow: hidden }
 .docs-nav { width: 218px; border-right: 1px solid var(--line); background: var(--bg2); overflow-y: auto; flex-shrink: 0; padding: 10px 0 }
 .dn-section { font-size: 9px; font-weight: 500; color: var(--hint); letter-spacing: .1em; text-transform: uppercase; padding: 10px 16px 3px }
 .dn-link { display: block; padding: 7px 16px; font-size: 12px; color: var(--muted); cursor: pointer; transition: all .12s; border-left: 2px solid transparent; text-decoration: none }
 .dn-link:hover { color: var(--text); background: rgba(255,255,255,.02) }
 .dn-link.active { color: var(--text); border-left-color: var(--purple); background: rgba(127,119,221,.05) }
-.docs-body { flex: 1; overflow-y: auto; height: 0; padding: 48px 52px }
+.docs-body { flex: 1; overflow-y: auto; height: 100%; padding: 48px 52px }
 .docs-body::-webkit-scrollbar { width: 6px }
 .d-eyebrow { font-size: 10px; font-weight: 500; color: rgba(127,119,221,.7); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px }
 .d-h1 { font-size: 32px; font-weight: 300; letter-spacing: -.03em; margin-bottom: 12px; line-height: 1.15 }

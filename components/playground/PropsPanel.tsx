@@ -1,6 +1,7 @@
 'use client'
 import { usePlaygroundStore } from '@/store/playground'
 import { PROP_DEFAULTS } from '@/lib/prop-defaults'
+import type { ComponentProps } from '@/lib/types'
 
 const COLORS = ['#7F77DD','#1D9E75','#EF9F27','#378ADD','#D4537E','#e24b4a','#38bdf8','#a78bfa','#34d399','#f97316']
 const ICONS  = ['none','→','↗','↑','★','⚡','♥','◆','●','✦']
@@ -15,13 +16,12 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
   return <div className="pr">{label && <div className="pl">{label}</div>}{children}</div>
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function TextInput({ value, onChange, ...rest }: { value: string; onChange: (v: string) => void; [k: string]: any }) {
-  return <input className="pi" value={value} onChange={e => onChange(e.target.value)} {...rest} />
+function TextInput({ value, onChange, ...rest }: Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> & { value: ComponentProps[string]; onChange: (v: string) => void }) {
+  return <input className="pi" value={value as string | number | readonly string[] | undefined} onChange={e => onChange(e.target.value)} {...rest} />
 }
 
-function Textarea({ value, onChange }: { value: string; onChange: (v: string) => void }) {
-  return <textarea className="pi" title="Text content" value={value} onChange={e => onChange(e.target.value)} />
+function Textarea({ value, onChange }: { value: ComponentProps[string]; onChange: (v: string) => void }) {
+  return <textarea className="pi" title="Text content" value={value as string | number | readonly string[] | undefined} onChange={e => onChange(e.target.value)} />
 }
 
 function Toggle({ value, onChange }: { value: boolean; onChange: (v: boolean) => void }) {
@@ -33,7 +33,7 @@ function Toggle({ value, onChange }: { value: boolean; onChange: (v: boolean) =>
   )
 }
 
-function Pills({ value, opts, onChange }: { value: string; opts: string[]; onChange: (v: string) => void }) {
+function Pills({ value, opts, onChange }: { value: ComponentProps[string]; opts: string[]; onChange: (v: string) => void }) {
   return (
     <div className="ppg">
       {opts.map(o => (
@@ -43,7 +43,7 @@ function Pills({ value, opts, onChange }: { value: string; opts: string[]; onCha
   )
 }
 
-function OptsGrid({ value, opts, onChange, cols = 2 }: { value: string; opts: string[]; onChange: (v: string) => void; cols?: number }) {
+function OptsGrid({ value, opts, onChange, cols = 2 }: { value: ComponentProps[string]; opts: string[]; onChange: (v: string) => void; cols?: number }) {
   return (
     <div className={cols === 3 ? 'og3' : 'og'}>
       {opts.map(o => (
@@ -53,7 +53,8 @@ function OptsGrid({ value, opts, onChange, cols = 2 }: { value: string; opts: st
   )
 }
 
-function Swatches({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+function Swatches({ value, onChange }: { value: ComponentProps[string]; onChange: (v: string) => void }) {
+  const sv = (value as string) ?? ''
   return (
     <div>
       <div className="swatches">
@@ -62,24 +63,25 @@ function Swatches({ value, onChange }: { value: string; onChange: (v: string) =>
         ))}
       </div>
       <div className="hrow">
-        <input className="hi" title="Hex colour" value={value} onChange={e => onChange(e.target.value)} maxLength={7} />
-        <input type="color" title="Colour picker" value={value} onChange={e => onChange(e.target.value)} />
+        <input className="hi" title="Hex colour" value={sv} onChange={e => onChange(e.target.value)} maxLength={7} />
+        <input type="color" title="Colour picker" value={sv} onChange={e => onChange(e.target.value)} />
       </div>
     </div>
   )
 }
 
-function Range({ value, min, max, unit = '', step = 1, onChange }: { value: number; min: number; max: number; unit?: string; step?: number; onChange: (v: number) => void }) {
+function Range({ value, min, max, unit = '', step = 1, onChange }: { value: ComponentProps[string]; min: number; max: number; unit?: string; step?: number; onChange: (v: number) => void }) {
+  const nv = (value as number) ?? 0
   return (
     <div className="rr">
-      <input type="range" title="Value" className="ri" value={value} min={min} max={max} step={step}
+      <input type="range" title="Value" className="ri" value={nv} min={min} max={max} step={step}
         onChange={e => onChange(unit ? parseInt(e.target.value) : parseFloat(e.target.value))} />
-      <span className="rn">{value}{unit}</span>
+      <span className="rn">{nv}{unit}</span>
     </div>
   )
 }
 
-function IconGrid({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+function IconGrid({ value, onChange }: { value: ComponentProps[string]; onChange: (v: string) => void }) {
   return (
     <div className="ig">
       {ICONS.map(ic => (
@@ -113,16 +115,14 @@ function AddRemoveList({ items, placeholder, onChange }: {
 // ─── PropsPanel ─────────────────────────────────────────────────────────────
 
 export default function PropsPanel() {
-  const { activeComponent, props, setProp, resetComponent } = usePlaygroundStore()
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const p: Record<string, any> = props[activeComponent] ?? {}
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const sp = (k: string, v: any) => setProp(activeComponent, k, v)
+  const { activeComponent, props, setProp, resetComponent, globalFont, globalTextColor, globalRadius, setGlobalFont, setGlobalTextColor, setGlobalRadius } = usePlaygroundStore()
+  const p: ComponentProps = props[activeComponent] ?? {}
+  const sp = (k: string, v: ComponentProps[string]) => setProp(activeComponent, k, v)
 
   // Helper: get array prop (handles legacy comma-strings)
   const arr = (key: string, fallback: string[] = []): string[] =>
-    Array.isArray(p[key]) ? p[key]
-      : typeof p[key] === 'string' && p[key] ? p[key].split(',').map((s: string) => s.trim()).filter(Boolean)
+    Array.isArray(p[key]) ? p[key] as string[]
+      : typeof p[key] === 'string' && p[key] ? (p[key] as string).split(',').map((s: string) => s.trim()).filter(Boolean)
       : fallback
 
   const builders: Record<string, () => React.ReactNode> = {
@@ -148,7 +148,7 @@ export default function PropsPanel() {
       </Grp>
       <Grp title="Typography">
         <Row label="Letter spacing">
-          <select className="pi" title="Letter spacing" value={p.letterSpacing} onChange={e=>sp('letterSpacing',e.target.value)}>
+          <select className="pi" title="Letter spacing" value={p.letterSpacing as string | undefined} onChange={e=>sp('letterSpacing',e.target.value)}>
             {[['Tight','-.03em'],['Default','-.01em'],['Normal','0em'],['Wide','.05em'],['Wider','.1em']].map(([l,v])=>(
               <option key={v} value={v}>{l}</option>
             ))}
@@ -499,7 +499,7 @@ export default function PropsPanel() {
       <Grp title="Settings">
         <Row label="Total items"><Range value={p.total} min={5} max={200} unit="" onChange={v=>sp('total',v)} /></Row>
         <Row label="Per page"><Range value={p.perPage} min={5} max={50} unit="" onChange={v=>sp('perPage',v)} /></Row>
-        <Row label="Current page"><Range value={p.current} min={1} max={Math.ceil((p.total||48)/(p.perPage||10))} unit="" onChange={v=>sp('current',v)} /></Row>
+        <Row label="Current page"><Range value={p.current} min={1} max={Math.ceil(((p.total as number)||48)/((p.perPage as number)||10))} unit="" onChange={v=>sp('current',v)} /></Row>
         <Row label="Show item count"><Toggle value={!!p.showCount} onChange={v=>sp('showCount',v)} /></Row>
         <Row label="Show arrows"><Toggle value={!!p.showArrows} onChange={v=>sp('showArrows',v)} /></Row>
       </Grp>
@@ -567,7 +567,7 @@ export default function PropsPanel() {
           {arr('items',['Item']).map((item, i) => {
             const danger = Array.isArray(p.dangerItems) ? !!p.dangerItems[i] : false
             const items = arr('items',['Item'])
-            const dangerItems: boolean[] = Array.isArray(p.dangerItems) ? [...p.dangerItems] : items.map(()=>false)
+            const dangerItems: boolean[] = Array.isArray(p.dangerItems) ? [...p.dangerItems as boolean[]] : items.map(()=>false)
             return (
               <div key={i} className="arl-row">
                 <input className="pi" value={item} placeholder="Item label…"
@@ -580,7 +580,7 @@ export default function PropsPanel() {
               </div>
             )
           })}
-          <button type="button" className="arl-add" onClick={()=>{ sp('items',[...arr('items',[]),'']); sp('dangerItems',[...(Array.isArray(p.dangerItems)?p.dangerItems:[]),false]) }}>＋ Add</button>
+          <button type="button" className="arl-add" onClick={()=>{ sp('items',[...arr('items',[]),'']); sp('dangerItems',[...(Array.isArray(p.dangerItems)?p.dangerItems as boolean[]:[]),false]) }}>＋ Add</button>
         </div>
       </Grp>
       <Grp title="Shape"><Row label="Radius"><Range value={p.radius} min={4} max={16} unit="px" onChange={v=>sp('radius',v)} /></Row></Grp>
@@ -667,6 +667,18 @@ export default function PropsPanel() {
         )}
       </div>
       <div className="ps">
+        <Grp title="Global tokens">
+          <Row label="Font family">
+            <select className="pi" title="Font family" value={globalFont} onChange={e => setGlobalFont(e.target.value)}>
+              {['Inter','DM Sans','Geist','Manrope','Plus Jakarta Sans','Space Grotesk','Sora','system-ui'].map(f => (
+                <option key={f} value={f}>{f}</option>
+              ))}
+            </select>
+          </Row>
+          <Row label="Text colour"><Swatches value={globalTextColor} onChange={setGlobalTextColor} /></Row>
+          <Row label="Radius scale"><Pills value={globalRadius} opts={['sharp','default','rounded']} onChange={v => setGlobalRadius(v as 'sharp'|'default'|'rounded')} /></Row>
+        </Grp>
+        <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.06)', margin: '8px 0' }} />
         {builder ? builder() : (
           <div style={{ padding: 16, fontSize: 12, color: 'var(--muted)' }}>No properties.</div>
         )}
