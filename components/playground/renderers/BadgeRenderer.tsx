@@ -3,7 +3,7 @@ import { hexRgb, lighten } from './_utils'
 import { useGlobals } from './_useGlobals'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function BadgeRenderer({ props: p }: { props: any }) {
-  const { fontFamily, resolveRadius } = useGlobals()
+  const { fontFamily } = useGlobals()
   const col = p.color || '#1D9E75'
   const rgb = hexRgb(col)
   // [paddingY, paddingX, fontSize]

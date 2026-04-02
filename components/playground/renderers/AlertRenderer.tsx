@@ -3,7 +3,7 @@ import { hexRgb, lighten } from './_utils'
 import { useGlobals } from './_useGlobals'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function AlertRenderer({ props: p }: { props: any }) {
-  const { fontFamily, textColor, resolveRadius } = useGlobals()
+  const { fontFamily, textColor } = useGlobals()
   const col = p.color || '#1D9E75'
   const rgb = hexRgb(col)
   const VM: Record<

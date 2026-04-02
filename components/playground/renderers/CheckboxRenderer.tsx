@@ -4,7 +4,7 @@ import { hexRgb, contrast } from './_utils'
 import { useGlobals } from './_useGlobals'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function CheckboxRenderer({ props: p }: { props: any }) {
-  const { fontFamily, textColor } = useGlobals()
+  const { fontFamily } = useGlobals()
   const col = p.color || '#7F77DD'
   const rgb = hexRgb(col)
   const sz =

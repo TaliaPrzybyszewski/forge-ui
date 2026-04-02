@@ -9,7 +9,6 @@ export default function NavbarRenderer({ props: p }: { props: any }) {
   const isDark = p.variant === 'dark'
   const bg = isDark ? '#0f0f12' : 'rgba(255,255,255,.95)'
   const tc = isDark ? 'rgba(240,237,232,.6)' : 'rgba(0,0,0,.6)'
-  const tc2 = isDark ? '#f0ede8' : '#0a0a0b'
   const links: string[] = Array.isArray(p.links)
     ? p.links
     : (p.links || 'Work,About,Services,Contact')
