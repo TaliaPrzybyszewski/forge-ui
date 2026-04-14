@@ -35,11 +35,19 @@ export default function InputRenderer({ props: p }: { props: InputProps }) {
     disabled: "rgba(240,237,232,.15)",
   };
   const ht: Record<string, string> = {
+<<<<<<< HEAD
     default: p.hint ?? "Enter a value",
     error: "Please enter a valid email.",
     success: "Looks good!",
     disabled: "This field is locked.",
   };
+=======
+    default: p.hint ?? 'Enter a value',
+    error: 'Please enter a valid email.',
+    success: 'Looks good!',
+    disabled: 'This field is locked.',
+  }
+>>>>>>> 78f70ac4997ddf3cef62d3945c0699ba728fbaea
   return (
     <div
       style={{ display: "flex", flexDirection: "column", gap: 6, width: 280 }}

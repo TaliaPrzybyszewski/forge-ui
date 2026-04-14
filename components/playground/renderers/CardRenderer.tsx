@@ -12,8 +12,13 @@ export default function CardRenderer({ props: p }: { props: CardProps }) {
   return (
     <div
       style={{
+<<<<<<< HEAD
         background: hovered ? "#161618" : "#111113",
         border: `1px solid ${hovered ? `rgba(${rgb},.22)` : "rgba(255,255,255,.07)"}`,
+=======
+        background: hovered ? '#161618' : '#111113',
+        border: `1px solid ${hovered ? `rgba(${rgb},.22)` : 'rgba(255,255,255,.07)'}`,
+>>>>>>> 78f70ac4997ddf3cef62d3945c0699ba728fbaea
         borderRadius: resolveRadius(p.radius ?? 4),
         padding: p.padding,
         width: p.width ?? 280,

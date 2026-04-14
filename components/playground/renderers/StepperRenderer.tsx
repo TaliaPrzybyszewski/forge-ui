@@ -10,10 +10,15 @@ export default function StepperRenderer({ props: p }: { props: StepperProps }) {
 
   // Support plus/minus arrays or legacy step1/step2/step3/step4
   const steps: string[] = Array.isArray(p.steps)
+<<<<<<< HEAD
     ? p.steps
     : [p.step1, p.step2, p.step3, p.step4].filter((s): s is string =>
         Boolean(s),
       );
+=======
+  ? p.steps
+  : [p.step1, p.step2, p.step3, p.step4].filter((s): s is string => Boolean(s));
+>>>>>>> 78f70ac4997ddf3cef62d3945c0699ba728fbaea
   const descs: string[] = Array.isArray(p.descs)
     ? p.descs
     : [
