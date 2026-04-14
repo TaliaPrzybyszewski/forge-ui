@@ -16,11 +16,24 @@ export default function SkeletonRenderer({ props: p }: { props: SkeletonProps })
       <div style={{display:'flex',gap:8,marginTop:3}}><div style={sk(60,22)}/><div style={sk(80,22)}/></div>
     </div>
   )
-  if(p.variant==='text') return (
-    <div style={{width:280,display:'flex',flexDirection:'column',gap:10}}>
-      {Array.from({length:p.lines??3}).map((_,i)=><div key={i} style={sk(i===p.lines-1?'65%':'100%',13)}/>)}
+  if (p.variant === "text") {
+
+    const lines = p.lines ?? 3;
+    return (
+      <div
+      style={{
+        width: 280,
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
+      }}
+      >
+      {Array.from({ length: p.lines ?? 3 }).map((_, i) => (
+        <div key={i} style={sk(i === lines - 1 ? "65%" : "100%", 13)} />
+      ))}
     </div>
-  )
+  );
+}
   if(p.variant==='profile') return (
     <div style={{display:'flex',alignItems:'center',gap:14,width:280}}>
       <div style={sk(56,56)}/>
