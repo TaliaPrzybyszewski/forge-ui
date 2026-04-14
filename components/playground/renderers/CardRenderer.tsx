@@ -14,7 +14,7 @@ export default function CardRenderer({ props: p }: { props: CardProps }) {
       style={{
         background: hovered ? '#161618' : '#111113',
         border: `1px solid ${hovered ? `rgba(${rgb},.22)` : 'rgba(255,255,255,.07)'}`,
-        borderRadius: resolveRadius(p.radius),
+        borderRadius: resolveRadius(p.radius ?? 4),
         padding: p.padding,
         width: p.width ?? 280,
         cursor: 'pointer',
