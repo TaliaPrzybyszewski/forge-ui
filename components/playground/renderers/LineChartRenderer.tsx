@@ -17,7 +17,10 @@ export default function LineChartRenderer({ props: p }: { props: LineChartProps 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const chartRef = useRef<any>(null);
 
-  const rawData: string[] = Array.isArray(p.data) ? p.data : [];
+  const rawData = useMemo(
+  () => (Array.isArray(p.data) ? p.data : []),
+  [p.data]
+);
   const hasData = rawData.length > 0;
 
   const labels = useMemo(
