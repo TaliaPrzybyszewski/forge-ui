@@ -12,7 +12,7 @@ export default function ModalRenderer({ props: p }: { props: ModalProps }) {
         width: 340,
         background: '#0f0f12',
         border: '1px solid rgba(255,255,255,.08)',
-        borderRadius: resolveRadius(p.radius),
+        borderRadius: resolveRadius(p.radius ?? 4),
         overflow: 'hidden',
         boxShadow: '0 24px 80px rgba(0,0,0,.5)',
       }}
