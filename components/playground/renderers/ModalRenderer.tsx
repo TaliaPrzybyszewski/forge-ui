@@ -10,19 +10,11 @@ export default function ModalRenderer({ props: p }: { props: ModalProps }) {
     <div
       style={{
         width: 340,
-<<<<<<< HEAD
         background: "#0f0f12",
         border: "1px solid rgba(255,255,255,.08)",
         borderRadius: resolveRadius(p.radius ?? 4),
         overflow: "hidden",
         boxShadow: "0 24px 80px rgba(0,0,0,.5)",
-=======
-        background: '#0f0f12',
-        border: '1px solid rgba(255,255,255,.08)',
-        borderRadius: resolveRadius(p.radius ?? 4),
-        overflow: 'hidden',
-        boxShadow: '0 24px 80px rgba(0,0,0,.5)',
->>>>>>> 78f70ac4997ddf3cef62d3945c0699ba728fbaea
       }}
     >
       <div

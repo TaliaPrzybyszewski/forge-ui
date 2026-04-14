@@ -22,15 +22,9 @@ export default function LineChartRenderer({
   const chartRef = useRef<any>(null);
 
   const rawData = useMemo(
-<<<<<<< HEAD
     () => (Array.isArray(p.data) ? p.data : []),
     [p.data],
   );
-=======
-  () => (Array.isArray(p.data) ? p.data : []),
-  [p.data]
-);
->>>>>>> 78f70ac4997ddf3cef62d3945c0699ba728fbaea
   const hasData = rawData.length > 0;
 
   const labels = useMemo(
@@ -38,11 +32,7 @@ export default function LineChartRenderer({
       hasData
         ? rawData.map((s: string) => s.split(",")[0] || "")
         : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-<<<<<<< HEAD
     [rawData, hasData],
-=======
-    [rawData, hasData]
->>>>>>> 78f70ac4997ddf3cef62d3945c0699ba728fbaea
   );
 
   const vals1 = useMemo(
@@ -50,11 +40,7 @@ export default function LineChartRenderer({
       hasData
         ? rawData.map((s: string) => Number(s.split(",")[1]) || 0)
         : [2.1, 3.4, 2.8, 4.2, 3.9, 5.8, 5.2, 7.1],
-<<<<<<< HEAD
     [rawData, hasData],
-=======
-    [rawData, hasData]
->>>>>>> 78f70ac4997ddf3cef62d3945c0699ba728fbaea
   );
 
   const vals2 = useMemo(
@@ -62,11 +48,7 @@ export default function LineChartRenderer({
       hasData
         ? rawData.map((s: string) => Number(s.split(",")[2]) || 0)
         : [0.8, 1.2, 1, 1.8, 2.1, 2.8, 2.4, 3.6],
-<<<<<<< HEAD
     [rawData, hasData],
-=======
-    [rawData, hasData]
->>>>>>> 78f70ac4997ddf3cef62d3945c0699ba728fbaea
   );
 
   useEffect(() => {
@@ -147,7 +129,6 @@ export default function LineChartRenderer({
         chartRef.current = null;
       }
     };
-<<<<<<< HEAD
   }, [
     col,
     col2,
@@ -163,9 +144,6 @@ export default function LineChartRenderer({
     p.showGrid,
     p.showDots,
   ]);
-=======
-  }, [col, col2, rgb, rgb2, fontFamily, labels, vals1, vals2, p.tension, p.fill, p.animated, p.showGrid, p.showDots]);
->>>>>>> 78f70ac4997ddf3cef62d3945c0699ba728fbaea
 
   return (
     <div
