@@ -35,7 +35,7 @@ export default function InputRenderer({ props: p }: { props: InputProps }) {
     disabled: 'rgba(240,237,232,.15)',
   }
   const ht: Record<string, string> = {
-    default: p.hint,
+    default: p.hint ?? 'Enter a value',
     error: 'Please enter a valid email.',
     success: 'Looks good!',
     disabled: 'This field is locked.',
