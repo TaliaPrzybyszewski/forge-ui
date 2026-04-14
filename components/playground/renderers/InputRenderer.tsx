@@ -63,7 +63,7 @@ export default function InputRenderer({ props: p }: { props: InputProps }) {
           width: '100%',
           background: '#111113',
           border: `1px solid ${ss.b}`,
-          borderRadius: resolveRadius(p.radius),
+          borderRadius: resolveRadius(p.radius ?? 4),
           padding: `${sz[0]}px 12px`,
           fontSize: sz[1],
           color: textColor,
