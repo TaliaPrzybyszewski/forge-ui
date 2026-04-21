@@ -24,7 +24,7 @@ export default function BadgeRenderer({ props: p }: { props: BadgeProps }) {
     ["#1D9E75", "Online"],
     ["#EF9F27", "Away"],
     ["#e24b4a", "Busy"],
-    ["rgba(240,237,232,.18)", "Offline"],
+    ["#f0ede8", "Offline"],
   ];
   return (
     <div

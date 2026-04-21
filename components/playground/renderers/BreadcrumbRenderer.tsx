@@ -45,17 +45,13 @@ export default function BreadcrumbRenderer({
           </>
         )}
         {items.map((item: string, i: number) => (
-          <>
+          <span key={i}>
             {i > 0 && (
-              <span
-                key={`sep-${i}`}
-                style={{ color: "rgba(240,237,232,.2)", fontSize: 12 }}
-              >
+              <span style={{ color: "rgba(240,237,232,.2)", fontSize: 12 }}>
                 {p.separator}
               </span>
             )}
             <a
-              key={item}
               style={{
                 fontSize: 12,
                 color:
@@ -70,7 +66,7 @@ export default function BreadcrumbRenderer({
             >
               {item}
             </a>
-          </>
+          </span>
         ))}
       </nav>
       <div
@@ -90,9 +86,8 @@ export default function BreadcrumbRenderer({
             style={{ display: "flex", alignItems: "center", gap: 5 }}
           >
             {trail.map((item, i) => (
-              <>
+              <span key={i}>
                 <span
-                  key={`s${i}`}
                   style={{
                     color: "rgba(240,237,232,.2)",
                     fontSize: 11,
@@ -102,7 +97,6 @@ export default function BreadcrumbRenderer({
                   /
                 </span>
                 <span
-                  key={item}
                   style={{
                     fontSize: 11,
                     color:
@@ -114,7 +108,7 @@ export default function BreadcrumbRenderer({
                 >
                   {item}
                 </span>
-              </>
+              </span>
             ))}
           </nav>
         ))}
